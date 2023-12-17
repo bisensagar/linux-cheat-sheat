@@ -1,12 +1,11 @@
-
-##****************At Server END*************##
+#############################################
+############### AT SERVER END ###############
+#############################################
 
 ## Install NFS Packages at server end ##
-
 yum install nfs-utils libnfsidmap
 
 ## Enable Services ##
-
 systemctl enable rpcbind
 systemctl enable nfs-server
 systemctl start rpcbind
@@ -15,7 +14,6 @@ systemctl start rpc-statd
 systemctl start nfs-idmap
 
 ## Create NFS shared directory ##
-
 mkdir /NFS-shared=folder
 chmod a+rwx /NFS-shared=folder
 
@@ -25,7 +23,9 @@ chmod a+rwx /NFS-shared=folder
 ## Export NFS FileSystem
 exportfs -rv
 
-##****************At Client END*************##
+#############################################
+############### AT CLIENT END ###############
+#############################################
 
 ## Install NFS Packages at client end ##
 yum install nfs-utils rpcbind
