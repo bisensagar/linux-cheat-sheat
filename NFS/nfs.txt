@@ -1,0 +1,49 @@
+
+##****************At Server END*************##
+
+## Install NFS Packages at server end ##
+
+yum install nfs-utils libnfsidmap
+
+## Enable Services ##
+
+systemctl enable rpcbind
+systemctl enable nfs-server
+systemctl start rpcbind
+systemctl start nfs-server
+systemctl start rpc-statd
+systemctl start nfs-idmap
+
+## Create NFS shared directory ##
+
+mkdir /NFS-shared=folder
+chmod a+rwx /NFS-shared=folder
+
+## Modify /etc/exports ##
+/NFS-shared=folder <enter clinet ip> (rw,sync,no_root_squash)
+
+## Export NFS FileSystem
+exportfs -rv
+
+##****************At Client END*************##
+
+## Install NFS Packages at client end ##
+yum install nfs-utils rpcbind
+
+## Enable and start the service ##
+systemctl enable rpcbind
+systemctl start rpcbind
+
+## Stop Firewall & Iptables ##
+ps -ef | egrep "firewall|iptable"
+
+## Mount NFS Server ##
+showmount -e <server ip address>
+
+## Create Mount point ##
+mkdire /nfs-directory
+
+## Mount NFS FileSystem
+mount <server ip address>:/NFS-shared=folder /nfs-directory
+
+## END ##
